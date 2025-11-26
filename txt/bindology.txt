@@ -1,0 +1,151 @@
+Red[Purpose: {Deep REBOL: Bindology}
+
+===REBOL words
+
+REBOL words like all red values have type. Let's have a look at all available word types:
+
+	type? first [red] ; == word!
+	type? first [red:] ; == set-word!
+	type? first [:red] ; == get-word!
+	type? first ['red] ; == lit-word!
+	type? first [/red] ; == refinement!
+
+Moreover, all Rebol words have a common pseudo-type ANY-WORD!:
+
+	any-word? first [red] ; == true
+	any-word? first [red:] ; == true
+	any-word? first [:red] ; == true
+	any-word? first ['red] ; == true
+	any-word? first [/red] ; == false
+
+=== Spelling
+
+Every word has got a spelling. The spelling of a word is a string and it is one
+of the properties the above example words have in common. We can obtain the
+spelling of a word using the TO-STRING function:
+
+	to-string first [red] ; == "red"
+	to-string first [red:] ; == "red"
+	to-string first [:red] ; == "red"
+	to-string first ['red] ; == "red"
+	to-string first [/red] ; == "red"
+
+=== Rebol use and Red context
+
+It’s entirely possible to have a block containing [x x x] in which each x was
+declared in a different context and each one has a completely different value!
+
+	xs: [] 
+	use [x] [ x: 12 append xs 'x ]
+	use [x] [ x: 9  append xs 'x ]
+	use [x] [ x: "REBOL" append xs 'x ]
+	probe xs
+	; == [x x x]
+	print xs
+	; == 12 9 REBOL
+
+--- Red version
+
+	xs: []
+	context [x: 12 append xs 'x]
+	context [x: 9 append xs 'x]
+	context [x: "Red" append xs 'x ]
+	probe xs
+	; == [x x x]
+	print xs
+	; == 12 9 Red
+
+The important thing to note here is that the xs variable ends up containing [x x x]. Although each of these words has the same spelling, “x”, they are not the same word. Each is declared in a different context and points to a different value. This is demonstrated by printing the values.
+
+=== Dialect
+
+In REBOL, a dialect is a sequence of REBOL values inside of a block, interpreted
+using the parse function. This is more easily demonstrated than explained, so
+here’s an example.
+
+	rules: [ any [
+	set count integer!
+	set value [ string! | word! ] (value: either string? value [value] [get value])
+	(repeat n count [print value]) ]
+	]
+
+	last-name: "Sassenrath"
+
+	parse [3 "Carl" 4 last-name] rules
+
+--- Version where loop replaces repeat
+
+	rules: [ any [
+	set count integer!
+	set value [ string! | word! ] (value: either string? value [value] [get value])
+	(loop count [print value]) ]
+	]
+
+--- The ouput is :
+
+Carl
+Carl
+Carl
+Sassenrath
+Sassenrath
+Sassenrath
+Sassenrath
+
+The second argument of parse is a block specified in the PARSE dialect.
+The rules provide the grammar for a very simple dialect. This dialect must consist 
+of a sequence of zero or more integer-string or integer-word pairs. For each pair
+encountered, the string is printed out the number of times specified. If a word is
+encountered, it is evaluated, and the result is also printed to standard output.
+
+=== Parse (2)
+
+The only proviso is that the dialect must consist of a sequence of valid REBOL
+values, optionally including words. Note that dialects could not exist if blocks
+were immediately evaluated. By deferring their evaluation, we give parse the
+opportunity to interpret the block in whatever way we wish, completely bypassing REBOL’s ordinary DO dialect. 
+
+=== A curiosity
+
+	doubler: func [x] [
+	      code: copy [add x]
+	      append code 'x
+	      ?? code
+	      print ["Doubled:" do code]
+	]
+
+	doubler 3 ; ==6
+	doubler 3.14 ; ==6.28
+
+=== Scoping
+
+	a: 1
+
+	func-1: func [] [a]
+
+	inner: context [
+	    a: 2
+	    func-2: func [] [a]
+	    func-3: func [/local a] [a: 3 func-1]
+	]
+
+	reduce [func-1 inner/func-2 inner/func-3]
+	; == [1 2 1]
+
+--- More scoping
+
+	x: 10
+
+	foo: func [x] [
+	    print x
+	    x: 20
+	    print x
+	]
+
+	foo 304
+
+	304
+	20
+	
+	x
+	;== 10
+

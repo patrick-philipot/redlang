@@ -1,0 +1,1 @@
+Fichier pour ex12.red "nouvelle ligne" "^M^/" "autre ligne" "^M^/" "autre ligne" "^M^/" "autre ligne" "^M^/" "Enter some lines here..." "^M^/"

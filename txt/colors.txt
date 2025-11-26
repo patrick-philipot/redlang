@@ -1,0 +1,9 @@
+colors: [
+	red white gray aqua beige black 
+	blue brick brown coal coffee crimson 
+	cyan forest gold green ivory khaki 
+	leaf linen magenta maroon mint navy 
+	oldrab olive orange papaya pewter pink 
+	purple reblue rebolor sienna silver sky 
+	snow tanned teal violet water wheat 
+	yello yellow glass ]

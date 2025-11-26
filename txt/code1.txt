@@ -1,0 +1,106 @@
+
+{ Red code to be tested (RED 0.66 macos Mojave)
+
+===Document Text Style
+
+Document text is dark on light and can also include a number of facets to set
+the font, style, color, shadow, spacing, tabbing, and other attributes.
+
+	text "Normal"
+	text "Bold" bold
+	text "Italic" italic
+	text "Underline" underline
+	text "Bold italic underline" bold italic underline
+	text "Big" font-size 32
+	text "Serif style text" font-name font-serif
+	text "Spaced text" font [space: 5x0]
+
+Document text also includes these predefined styles:
+
+	title "Centered title"
+	h1 "Heading 1"
+	h2 "Heading 2"
+	h3 "Heading 3"
+	h4 "Heading 4"
+	; tt "Typewriter text"
+	; code "Code text"
+
+!In RED, tt and code are not predefined. As for title, it's used to set the
+window title.
+
+===Text Entry Fields
+
+Text input fields accept text until the enter or tab key is pressed.  A text input
+field can be created with:
+
+	field
+
+To make the field larger or smaller, provide a width:
+
+	field 30
+	field 300
+
+Fields will scroll when necessary.
+
+Larger amounts of text can be entered in an area.  Areas also accept an enter
+key and will break lines.
+
+	area
+
+You can also specify the area size:
+
+	area 160x200
+
+To force the text in an area to wrap rather than scroll horizontally, provide
+the wrap option:
+
+	area wrap
+
+===Text Lists
+
+Text lists are easy to create.  Here is an example.
+
+	text-list data ["Eureka" "Ukiah" "Mendocino"]
+
+Almost any type of block can be provided. Here is a list of all the files in
+your current directory:
+
+	text-list data read %.
+
+There is no selection by default. The facet selected gives the index of selected
+string or none value if no selection (read/write).
+
+	layout [
+		below
+		chosen: text "empty"	
+		all-days: text-list 
+		data days: copy [ "Monday" "Tuesday" "Wednesday" "Thursday" ] 
+		[ chosen/data: pick days all-days/selected ]
+	]
+
+===Images
+
+By default an image will be scaled to fit within a face.
+
+	image 60x60 %palms.jpg
+
+Most other faces can accept an image as well as text:
+
+	box 100x100 %palms.jpg
+	button "Button" %palms.jpg
+
+The image can be provided as a filename, URL, or image data.
+
+===Backdrops
+
+A backdrop can be a color, or an image. For example a backdrop color would be
+written as:
+
+	backdrop navy
+	text "Color Backdrop" gold
+
+A backdrop image can be a file, URL, or image data:
+
+	backdrop %palms.jpg
+	text "Image Backdrop" red
+}

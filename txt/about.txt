@@ -1,0 +1,131 @@
+
+{ Red/VID code to be tested (RED 0.66 macos Mojave)
+
+===About it
+
+This program allows you to easily test some REBOL/VID codes with RED. They are
+loads of them available. In addition, if you have REBOL installed on the same
+machine, it's possible to run the code with REBOL and see the result for comparison.
+
+!Simply click the "Test with rebol" check
+
+In order to test your code, you need a simple text file (ex: mycode.txt) formatted
+like the screen your are reading.
+
+A line starting with "===" is a title section. An empty line must follow. The 
+current section title is "About it".
+
+Consecutives lines, each indented by one tab characters, form a block of code. This 
+is an example (you may omit the "view layout" for simplicty):
+
+	view layout [button "Test it"]
+
+Just provide the content of the layout block
+
+	text-list data ["Eureka" "Ukiah" "Mendocino"]
+	button 100 "click me"
+	check "Are-you happy ?" [either face/data [print "Yes"][print "No"]]
+
+!Click a block to run it with RED (and REBOL possibly). A line starting with an
+exclamation point ! with no space after is a remark. A section is about 30 lines
+long, so it's time to start a new one at this point.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Document text also includes these predefined styles:
+
+	title "Centered title"
+	h1 "Heading 1"
+	h2 "Heading 2"
+	h3 "Heading 3"
+	h4 "Heading 4"
+	; tt "Typewriter text"
+	; code "Code text"
+
+!In RED, tt and code are not predefined. As for title, it's used to set the
+window title.
+
+===How long can i be
+
+line number >> 1
+line number >> 2
+line number >> 3
+line number >> 4
+line number >> 5
+line number >> 6
+line number >> 7
+line number >> 8
+line number >> 9
+line number >> 10
+line number >> 11
+line number >> 12
+line number >> 13
+line number >> 14
+line number >> 15
+line number >> 16
+line number >> 17
+line number >> 18
+line number >> 19
+line number >> 20
+line number >> 21
+line number >> 22
+line number >> 23
+line number >> 24
+line number >> 25
+line number >> 26
+line number >> 27
+line number >> 28
+line number >> 29
+line number >> 30
+
+===Text Lists
+
+
+
+There is no selection by default. The facet selected gives the index of selected
+string or none value if no selection (read/write).
+
+	layout [
+		below
+		chosen: text "empty"	
+		all-days: text-list 
+		data days: copy [ "Monday" "Tuesday" "Wednesday" "Thursday" ] 
+		[ chosen/data: pick days all-days/selected ]
+	]
+
+===Images
+
+By default an image will be scaled to fit within a face.
+
+	image 60x60 %palms.jpg
+
+Most other faces can accept an image as well as text:
+
+	box 100x100 %palms.jpg
+	button "Button" %palms.jpg
+
+The image can be provided as a filename, URL, or image data.
+
+===Backdrops
+
+A backdrop can be a color, or an image. For example a backdrop color would be
+written as:
+
+	backdrop navy
+	text "Color Backdrop" gold
+
+A backdrop image can be a file, URL, or image data:
+
+	backdrop %palms.jpg
+	text "Image Backdrop" red
+}

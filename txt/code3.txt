@@ -1,0 +1,70 @@
+{ From http://www.rebol.com/docs/view-guide.html
+
+===BELOW
+
+BELOW specifies a vertical layout for faces that follow it. It is used along
+with ACROSS for auto layout of faces. BELOW is the default layout direction
+when none is specified. For example:
+
+	button "Button 1"
+	button "Button 2"
+	button "Button 3"
+
+You can switch between BELOW and ACROSS at any time during a layout. When
+BELOW is used, faces will be positioned below the current face.
+
+	across
+	button "Button 1"
+	button "Button 2"
+	return
+	below
+	button "Button 3"
+	button "Button 4"
+
+===ACROSS
+
+ACROSS specifies a horizontal layout for faces that follow it. It is used
+along with BELOW for auto layout of faces. When ACROSS is used, faces will
+be located to the right of the current face.
+
+	across
+	button "Button 1"
+	button "Button 2"
+	button "Button 3"
+
+RETURN advances the position to the next row or column, depending on the
+layout direction. If the layout direction is across, return will start a
+new row. If the direction is below, return will start a new column.
+
+	across
+	text "Name:" 100x24 right
+	field "Your name"
+	return
+	text "Address:" 100x24 right
+	field "Your address"
+	return
+
+===FEEL/ENGAGE
+
+The first example found in https://www.rebol.com/docs/quick-start2.html is
+the Digital Clock
+
+	f: layout [
+	    origin 0
+	    b: banner 140x32 rate 1 
+	        effect [gradient 0x1 0.0.150 0.0.50]
+	        feel [engage: func [f a e] [set-face b now/time]]
+	]
+
+!WARNING this code won't work in Red. Neither fell nor engage are available.
+
+	clock-face: base white red 400 font-size 64 rate 1
+	on-time [ clock-face/text: form now/time ]
+
+With Red you have to use rate and on-time.
+
+
+
+
+
+}

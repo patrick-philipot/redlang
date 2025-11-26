@@ -1,0 +1,24 @@
+{ Red code to be tested (RED 0.66 macos Mojave)
+
+===Origin
+
+!From http://www.rebol.com/docs/view-guide.html
+
+Setting the origin is especially important when creating panels and lists.
+Frequently the origin in lists is set to zero. For example:
+
+	text bold navy white "Films:"
+	list 144x60 [
+	    origin 0x0
+	    across
+	    text 60
+	    text 80
+	] data [
+	    ["Back to the Future" "1:45"]
+	    ["Independence Day" "1:55"]
+	    ["Contact" "2:15"]
+	]
+
+!Note that this code causes an error in RED.
+}
+
