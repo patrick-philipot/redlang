@@ -44,7 +44,7 @@ react1.r
 tile-game.red ( tg4.red tg5.red ) 
 	work in progress - tile game
 
-tile-maker.red
+tile-maker.red (tm2)
 	builds squared tiles from squared image 240x240 and 320x320
 	
 
