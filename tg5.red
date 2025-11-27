@@ -5,7 +5,7 @@ margin: 2X2
 tile-size: 80
 tiles-by-row: 4
 nb-tiles: 16
-root: %./tiles/OBIWAN/
+root: %./tiles/EXTRA/
 
 ; building the view layout block
 lay-blk: copy []

@@ -1,8 +1,27 @@
 Red [ purpose: "tile-maker" ]
 
+
+; popups
+
+pop-open: func [blk [block!]][view/flags layout blk [popup]]
+
+pop-img: [
+	title "Select an image-source for the tiles"
+	text " Pressez OK pour ouvrir le sélecteur d'image" return
+	button "OK" [ unview ]	
+]
+
+pop-dir: [
+	title "Select a folder to store the tiles"
+	text " Pressez OK pour ouvrir le sélecteur de répertoire" return
+	button "OK" [ unview ]	
+]
+
+pop-open pop-img
+
 img: load img-file: request-file/title "Select a 240x240 or 320x320 png file"
 
-tiles-dir: first split-path img-file
+pop-open pop-dir
 
 tiles-dir: request-dir/title "Select a directory for saving the tiles"
 
@@ -24,7 +43,9 @@ repeat row nb-tiles [
 		img-name: rejoin ["tile" i]
 		i: i + 1
 		set to-set-word img-name draw  80x80 reduce ['image img 'crop top bot]
-		save/as rejoin [to-file img-name %.png] get to-word img-name 'png
+		; save/as rejoin [to-file img-name %.png] get to-word img-name 'png
+		tile-file: rejoin [ tiles-dir img-name %.png ]
+		save/as to-file tile-file get to-word img-name 'png
 		; increment for next col
 		top:  top + 80x0
 		bot:  top + 80x80

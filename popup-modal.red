@@ -6,12 +6,25 @@ return
 button "test" [print "clicked"]
 return}
 
+pop-open: func [blk [block!]][view/flags layout blk [popup]]
+
+pop-img: [
+	title "Select an image-source for the tiles"
+	text " Pressez OK pour ouvrir le sélecteur d'image" return
+	button "OK" [ unview ]	
+]
+
+pop-dir: [
+	title "Select a folder to store the tiles"
+	text " Pressez OK pour ouvrir le sélecteur de répertoire" return
+	button "OK" [ unview ]	
+]
+
 run-code-x: func [blk [block!]][
 	xview: view/flags layout blk [popup]
 	probe xview
 ]
 
-run-code: func [blk [block!]][view/flags layout blk [popup]]
 
 view [
 	title "Étude fenêtre PopUp modale ou non"
@@ -24,9 +37,12 @@ view [
 		view/flags layout xcode [modal popup]
 	] 
 
-	button "Open PopUp" [ 
-		print "PopUp"
-		blk-code: load/all source/text run-code blk-code 
+	button "Select Image" [ 
+		pop-open pop-img
+	]	
+
+	button "Select Dir" [ 
+		pop-open pop-dir
 	]
 
 	return
@@ -35,9 +51,10 @@ view [
 		blk-code: load/all source/text run-code-x blk-code 
 	]
 
-	button "xview?" [probe xview]
+	button "Tile-maker 1" [ 
+		run-code popup-blk 
+	]
 
-	button "unview/only xview" [ unview/only xview ]
 ]
 
 
