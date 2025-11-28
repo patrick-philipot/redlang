@@ -41,11 +41,15 @@ datadb.r / newbase.r
 react1.r
 	react example from DocKimbel
 
-tile-game.red ( tg4.red tg5.red ) 
+tile-game.red ( tg4.red tg5.red tg5x) 
 	work in progress - tile game
+	tg5x ask for the tiles directory
 
-tile-maker.red (tm2)
+tile-maker.red (tm2, tm3)
 	builds squared tiles from squared image 240x240 and 320x320
+
+pop.red, pop2.red
+	Modal popup (test)
 	
 
 
