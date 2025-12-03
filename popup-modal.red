@@ -25,8 +25,49 @@ run-code-x: func [blk [block!]][
 	probe xview
 ]
 
+alert: func [ message [string!] ][
+	blk: compose [
+		title "alert"
+		text (message) return
+		button "OK" [ unview ]	
+	]
+	view/flags layout blk [popup]
+]
 
-view [
+request: func [ message [string!] ][
+	ret: false
+	blk: compose [
+		title "request"
+		text (message) return
+		button "Yes" [ ret: true unview ]	
+		button "No" [ unview ]	
+	]
+	view/flags layout blk [popup]
+	ret
+]
+
+
+alert "Ceci est une alerte"
+print request "Must return true"
+print request "Must return false"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+old: [
 	title "Étude fenêtre PopUp modale ou non"
 	size 400x400
 	source: area 380 popup-text return

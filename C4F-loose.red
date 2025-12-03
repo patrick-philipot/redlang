@@ -1,7 +1,7 @@
 Red [needs: 'view]
 
 view [
-	title {From Code4Fun / using 'loose', 'on-up', 'offset' and 'mold'} 
+	title {From Code4Fun / using 'loose', 'on-up', 'offset'} 
 	size 450x200
 	b: box red white "Drag/Drop" loose on-up [
 		if b/offset/x > 370 [print "X right side boundary" b/offset/x: 220] 
