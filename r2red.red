@@ -51,7 +51,6 @@ clear-button-clicked: function [][
         a/text: copy  ""
         b/text: copy  ""
         c/text: copy  ""
-        o/text: copy  ""
         show gui
 ]
 

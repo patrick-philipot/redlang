@@ -19,6 +19,16 @@ print-all: does [
     print [ "Database contains " count "programs^/"]
 ] 
 
+print-all-sorted: func [/local db2][
+    db2: copy []
+    foreach item db [ append db2 item/1 ]
+    db2: sort db2
+    print a-line
+    foreach item db2 [ print item ]
+    print a-line
+    print [ "Database contains " length? db2 "programs^/"]
+]
+
 backup: func [ /local str-time back-name ][
     ; build a backup name from date as-is and time without second
     str-time: replace/all form now/time ":" "h"
@@ -62,19 +72,20 @@ new-record: func [ /local name what tags from confirm blk lines n][
 
 ; main loop   
 forever [
-    prin "^L"
     print "Here are the current program in the database:^/"
     print a-line
     foreach item db [print item/1]
     print "" print a-line
     prin "Search by tag or name"
-    print "(part of name or tags will perform search):^/"
+    print "(part of name or tags will perform search)"
     print "Type 'all' for a complete database listing."
+    print "Type 'new' to create a new record."
     print "Press [Enter] to quit.^/"
-    answer: ask {What tag ?  }
+    answer: ask {Enter tag, name, or command ?  }
     print newline
     switch/default answer [
         "all"   [ print-all]
+        "sort"   [ print-all-sorted]
         ""      [ ask "Goodbye!  Press any key to end." halt]
         "new"   [ do new-record ]       
         ][
