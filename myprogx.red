@@ -79,7 +79,9 @@ forever [
     prin "Search by tag or name"
     print "(part of name or tags will perform search)"
     print "Type 'all' for a complete database listing."
+    print "Type 'sort' for a sorted database listing."
     print "Type 'new' to create a new record."
+    print "Type 'program name' including '.red' to display it in full"
     print "Press [Enter] to quit.^/"
     answer: ask {Enter tag, name, or command ?  }
     print newline
@@ -87,13 +89,19 @@ forever [
         "all"   [ print-all]
         "sort"   [ print-all-sorted]
         ""      [ ask "Goodbye!  Press any key to end." halt]
-        "new"   [ do new-record ]       
+        "new"   [ do new-record ] 
         ][
+        special-case: (copy/part tail answer -4) == ".red"
         found: false
         foreach item db [
             if find rejoin [ item/1 " " item/3 ] answer [
                 print a-line
                 print item/1
+                if special-case [
+                    print item/2
+                    print item/3
+                    print item/4
+                ]
                 found: true
             ]
         ]
