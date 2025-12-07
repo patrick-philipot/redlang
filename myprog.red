@@ -4,6 +4,8 @@ db: load %myprog.db
 
 a-line: "-----------------------------------------------------------------"
 b-line: "+++++++++++++++++++++++++++++++++++++++++++++++"
+d-line: "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
 
 print-all: does [
     count: 0
@@ -69,10 +71,28 @@ new-record: func [ /local name what tags from confirm blk lines n][
     ]
 ]
 
+del-record: func [ blk [block!]][
+    print d-line
+    print prog-name: blk/1
+    print blk/2
+    print blk/3
+    print blk/4
+    confirm: ask "Type Y to confirm deletion of this record: "
+    either "Y" == uppercase confirm [
+        write backup db
+        remove-each entry db [ prog-name == first entry ]
+        write %myprog.db db
+        print "------RECORD DELETED-------"
+    ][
+        print "-----deletion-aborted------"
+    ]
+    ask "Press a key to continue"
+]
+
 
 ; main loop   
 forever [
-    print "Here are the current program in the database:^/"
+    print "Here are the programs in the database:^/"
     print a-line
     foreach item db [print item/1]
     print "" print a-line
@@ -93,11 +113,13 @@ forever [
         ][
         special-case: (copy/part tail answer -4) == ".red"
         found: false
+
         foreach item db [
             if find rejoin [ item/1 " " item/3 ] answer [
                 print a-line
                 print item/1
                 if special-case [
+                    special-item: item
                     print item/2
                     print item/3
                     print item/4
@@ -109,7 +131,14 @@ forever [
             print replace copy {Nothing found with "XXX" in the database!^/} "XXX" answer
         ][ print a-line ]
     ]
-    ask "Press [ENTER] to continue"
+    either special-case [
+        ; DELETE can be done Here
+        action: ask "Press [ENTER] to continue or type DEL to delete this record ? "
+        if action == "DEL" [ del-record special-item ]
+        special-case: false
+    ][
+        ask "Press [ENTER] to continue"
+    ]
 ]
 
 
