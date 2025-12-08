@@ -13,14 +13,14 @@ append lay [title "My TOOLS"
 			across
 			]
 
-template1: [ do load (to-file rejoin [ "XXX" %.red ] ) ]
-template2: [ btn "XXX" ]
+; buttons template
+template: [ btn "XXX" [ do load (to-file rejoin [ "XXX" %.red ] ) ] ]
 
 repeat i length? blk [
-	append lay replace copy template2 "XXX"  pick blk i
-	b1: replace/deep copy/deep template1 "XXX" pick blk i
-	append/only lay compose b1
+	append lay compose/deep replace/deep/all copy/deep template "xxx" blk/:i
 	if 0 == mod i 4 [ append lay 'return ]
 ]
+
+probe lay
 
 view layout lay
