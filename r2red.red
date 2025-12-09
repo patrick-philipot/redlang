@@ -70,13 +70,13 @@ save-button-clicked: function [][
 
 gui: layout [
     title "Commands compatibility between REBOL & Red"
-    style btn: button 
+    style btn: button 100
     
     across
     text "Commands" return
 
     below
-    name-list: text-list blue 100x310 data sort (extract database nb-fields) [
+    name-list: text-list blue 100x380 data sort (extract database nb-fields) [
         value: pick face/data face/selected
         if value <> none [
             marker: index? find database value
@@ -92,9 +92,9 @@ gui: layout [
 
     do [ f1: fields/1 f2: fields/2 f3: fields/3 ]
 
-    text f1      a: field 272
-    text f2      b: area 272x100
-    text f3      c: area 272x100
+    text f1  a: field 272
+    text f2  panel [ across b: area 272x100  button 24x28 img [ write-clipboard b/text ] ]
+    text f3  panel [ across c: area 272x100  button 24x28 img [ write-clipboard c/text ] ]     
     
     across
 

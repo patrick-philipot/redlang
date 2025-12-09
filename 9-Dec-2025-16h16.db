@@ -74,5 +74,4 @@
     ["vid.red" "list of all REBOL predefined VID styles" {banner vh1 vh2 vh3 tt code vtext txt label lbl info icon led rotary choice arrow} "https://www.rebol.com/docs/view-guide.html"]
     ["tl.red" "minimal text-list example" "text-list pick face selected ^^(tab)" "http://rebol.net/cookbook/recipes/0030.html"]
     ["tools.red" "group often used Red programs" "view button do load" "creation"]
-["clip.red" {making icon with draw, sending text to the clipboard} {draw polygon triangle box line write-clipboard view title} "I needed this for myprog"]
 ]
