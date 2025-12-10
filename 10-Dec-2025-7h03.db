@@ -63,7 +63,10 @@
     {builds squared tiles from squared image 240x240 and 320x320}
     "request-file request-dir layout-block"
     "me"]
-    ["myprog.red" "List all my Red program stored in myprog.db" {forever switch/default ask forever load ask/history compose reduce remove-each} "REBOL Programming for the absolute Beginner"]
+    ["myprog.red"
+    "List all my Red program stored in myprog.db"
+    "foreach switch/default ask forever load"
+    "REBOL Programming for the absolute Beginner"]
     ["hello.red" "Helloworld" "print string" "tradition"]
     ["blk.red" "testing code for myprogx.red" "replace/all read/lines insert/only write/lines" { used to perform same "testing" }]
     ["r2red.red" "helping the conversion of REBOL code to Red" {alert request do(VID) btn extract remove/part style sort} { derived from the card-file example by Nick Antonaccio}]
@@ -72,4 +75,5 @@
     ["tl.red" "minimal text-list example" "text-list pick face selected ^^(tab)" "http://rebol.net/cookbook/recipes/0030.html"]
     ["tools.red" "group often used Red programs" "view button do load" "creation"]
     ["clip.red" {making icon with draw, sending text to the clipboard} {draw polygon triangle box line write-clipboard view title} "I needed this for myprog"]
+    ["foo.red" "foo" "foo" "foo"]
 ]
