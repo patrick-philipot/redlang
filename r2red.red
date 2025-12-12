@@ -68,6 +68,14 @@ save-button-clicked: function [][
         show name-list
 ]
 
+img:  draw 24x24 [ 
+    pen black fill-pen white box 5x7 15x22 
+    polygon 15x4 8x4 8x19 19x19 19x8
+    triangle 15x4 15x8 19x8
+    line 11x11 16x11
+    line 11x15 16x15
+]
+
 gui: layout [
     title "Commands compatibility between REBOL & Red"
     style btn: button 100

@@ -72,5 +72,4 @@
     ["tl.red" "minimal text-list example" "text-list pick face selected ^^(tab)" "http://rebol.net/cookbook/recipes/0030.html"]
     ["tools.red" "group often used Red programs" "view button do load" "creation"]
     ["clip.red" {making icon with draw, sending text to the clipboard} {draw polygon triangle box line write-clipboard view title} "I needed this for myprog"]
-["clip-ext.red" {Extension de clip.red with move-draw function that can shift the drawing up, down,  left, right} "move-draw draw button write-clipboard view" "clip.red"]
 ]
