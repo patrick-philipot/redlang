@@ -1,5 +1,8 @@
 Red [ purpose: "List and search my program database with backup and input"]
 
+; console history
+last-history-command: last system/console/history
+
 db: load %myprog.db
 
 a-line: "------------------------------------------------------------LIST--"
@@ -144,41 +147,71 @@ forever [
     switch/default answer [
         "all"   [ print-all]
         "sort"   [ print-all-sorted]
-        ""      [ ask "Goodbye!  Press any key to end." halt]
+        ""      [ ask "Goodbye!  Press any key to end." break]
         "new"   [ do enter-record ] 
-        ][
+        ][ ;--- special-case to handle request made for the program name (.red)
         special-case: (copy/part tail answer -4) == ".red"
         found: false
 
+        ; how many results and if any storing them
+
+        blk-results: copy []
+        index: 0
         foreach item db [
+            index: index + 1
             if find rejoin [ item/1 " " item/3 ] answer [
-                print a-line
-                print item/1
-                if special-case [
-                    special-item: item
-                    print item/2
-                    print item/3
-                    print item/4
-                ]
-                found: true
+                append blk-results index
             ]
         ]
+
+        ; special-case extended to search having only one matched item
+
+        if  1 == length? blk-results [ special-case: true ]
+
+        either special-case [
+            blk-search: [ item/1]
+        ][
+            blk-search: [ item/1 " " item/3 ]         
+        ]
+
+        foreach elem blk-results [
+            item: db/:elem
+            print a-line
+            print item/1
+            if special-case [
+                special-item: item
+                print item/2
+                print item/3
+                print item/4
+            ]
+            found: true
+        ]
+
         either found <> true [
             print replace copy {Nothing found with "XXX" in the database!^/} "XXX" answer
         ][ print a-line ]
     ]
+
+    ; different prompt for special-case
     either special-case [
-        ; DELETE or EDIT can be done Here
+        ; DELETE, EDIT, RUN can be done here
         print "Press [ENTER] to continue"
         print "Type DEL to delete "
-        action: uppercase ask "Type EDIT to modify this record ? "
+        print "Type EDIT to modify "
+        action: uppercase ask "Type RUN to execute? "
         if action == "DEL" [ del-record special-item ]
         if action == "EDIT" [ enter-record/edit special-item ]
+        if action == "RUN" [ do load to-file special-item/1 ]
         special-case: false
     ][
         ask "Press [ENTER] to continue"
     ]
 ]
+
+; ending code
+; clean up system/console/history
+insert system/console/history last-history-command
+
 
 
 

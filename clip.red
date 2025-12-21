@@ -15,6 +15,5 @@ view layout [
 	across
 	button 24x28 img [ write-clipboard t/text ]
 	text "clic this icon to send the red text to the clipboard"
-
 ]
 
