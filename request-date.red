@@ -3,6 +3,16 @@ Red[
 	from: "popup-modal.red"
 ]
 
+alert: func [ message [string!] ][
+    blk: compose [
+        title "alert"
+        backdrop snow
+        text bold snow red (message) return
+        button "OK" [ unview ]  
+    ]
+    view/flags layout blk [popup]
+]
+
 request-date: func [
 	"Request a date."
 	message [string!]  "Title"
@@ -63,8 +73,7 @@ request-date: func [
 	    button 40x24 "OK" [
 	    	either error? try [current-date: load rejoin [current-year "-" name-of-month "-" current-day]]
 	    	[
-	    		print "invalid date"
-	    		halt
+	    		alert "You enter an invalid date, please check your inputs !"
 	    	][
 	    		unview
 	    	]
@@ -82,7 +91,7 @@ request-date: func [
 		bk-years bk-months bk-days][ probe :var print reduce [ var ]]
 	]
 
-	probe bk-months
+	; probe bk-months
 
 	return current-date
 ]
