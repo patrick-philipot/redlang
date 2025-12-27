@@ -1,3 +1,0 @@
-"paul" "paris" "11 22 33" "note from paul"
-"romeo" "turin" "77 88 99" "note from romeo"
-"anna" "madrid" "33 22 11" "note from anna" "alice" "paris" "66 77 88 99" "alice likes dolls and unicorn !" "victoria" "lyon" "99 88 77 66" "Victoria speaks both french and english"

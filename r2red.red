@@ -8,7 +8,7 @@ Red [
 
 fields: [ "command" "compatibility" "reference"]
 nb-fields: length? fields
-data-file: %r2red.txt
+data-file: %r2red.dat
 
 if not exists? data-file [
     database: [

@@ -3,7 +3,7 @@ Red [
 	purpose: "group often used Red programs"
 ]
 
-blk: load %tools.txt
+blk: load %tools.dat
 
 lay: copy []
 

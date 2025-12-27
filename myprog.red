@@ -12,6 +12,27 @@ e-line: "-----------------------------------------------------------EDIT--"
 
 special-case: false
 
+; dockimble special to clear the console as CLS for BASIC or clear for BASH
+clean: does [
+  do bind [
+    full?:      no
+    top:        1
+    scroll-y:   0
+    line-y:     0
+    line-cnt:   0
+    screen-cnt: 0
+    line-pos:   1
+    clear lines
+    clear nlines
+    clear heights
+    clear selects
+    gui-console-ctx/scroller/page-size: page-cnt
+    gui-console-ctx/scroller/max-size: page-cnt - 1
+    gui-console-ctx/scroller/position: 0
+  ] gui-console-ctx/terminal
+  system/view/platform/redraw gui-console-ctx/console
+]
+
 print-all: does [
     count: 0
     foreach item db [
@@ -147,7 +168,7 @@ forever [
     switch/default answer [
         "all"   [ print-all]
         "sort"   [ print-all-sorted]
-        ""      [ ask "Goodbye!  Press any key to end." break]
+        ""      [ ask "Goodbye!  Press any key to end." clean() break ]
         "new"   [ do enter-record ] 
         ][ ;--- special-case to handle request made for the program name (.red)
         special-case: (copy/part tail answer -4) == ".red"
@@ -205,12 +226,13 @@ forever [
         special-case: false
     ][
         ask "Press [ENTER] to continue"
+        clean()
     ]
 ]
 
 ; ending code
 ; clean up system/console/history
-insert system/console/history last-history-command
+insert system/console/history last-history-command ()
 
 
 
