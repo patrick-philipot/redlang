@@ -33,17 +33,19 @@ clean: does [
   system/view/platform/redraw gui-console-ctx/console
 ]
 
-print-all: does [
+print-all: func [/short][
     count: 0
     foreach item db [
-        print a-line
         print [ "name : " item/1 ]
-        print [ "what : " item/2 ]
-        print [ "tags : " item/3 ]
-        print [ "from : " item/4 ]
+        unless short [
+            print [ "what : " item/2 ]
+            print [ "tags : " item/3 ]
+            print [ "from : " item/4 ]
+            print a-line
+        ]
         count: count + 1
     ]
-    print a-line
+    if short [ print a-line ]    
     print [ "Database contains " count "programs^/"]
 ] 
 
@@ -159,6 +161,7 @@ forever [
     prin "Search by tag or name"
     print "(part of name or tags will perform search)"
     print "Type 'all' for a complete database listing."
+    print "Type 'list' for a title only database listing."
     print "Type 'sort' for a sorted database listing."
     print "Type 'new' to create a new record."
     print "Type 'program name' including '.red' to display it in full"
@@ -167,7 +170,8 @@ forever [
     print newline
     switch/default answer [
         "all"   [ print-all]
-        "sort"   [ print-all-sorted]
+        "list"  [ print-all/short]
+        "sort"  [ print-all-sorted]
         ""      [ ask "Goodbye!  Press any key to end." clean() break ]
         "new"   [ do enter-record ] 
         ][ ;--- special-case to handle request made for the program name (.red)

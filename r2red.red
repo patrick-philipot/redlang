@@ -94,7 +94,7 @@ gui: layout [
             show gui
             set-focus name-list
         ]
-    ]
+    ] select 1
 
     return
 

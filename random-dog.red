@@ -1,0 +1,15 @@
+Red [
+	Title: {Random dog viewer}
+	Author: "loziniak"
+	Needs: View
+]
+
+view [
+	below
+	img: base 150x150
+	button "Dog photo" [
+		dog-data: load-json read https://api.thedogapi.com/v1/images/search?size=thumb
+		probe dog-data
+		img/image: load to-url dog-data/1/url
+	]
+]
