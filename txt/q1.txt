@@ -1,0 +1,62 @@
+I'm experiencing a problem that could be a bug when passing a string argument to a Red program from the command line. The received value is delimited by a single quote character on both sides, example 'foo'. But these characters are actually parts of the string so that length? 'foo' is 5 and not 3.
+
+I'm on macOS
+
+-----------RED & PLATFORM VERSION----------- 
+RED: [ branch: "master" tag: #v0.6.6 ahead: 0 date: 19-Mar-2025/13:09:25 commit: #6942c7a021253150c3e3cf90428305892340db03 ]
+PLATFORM: [ name: "macOS El Capitan" OS: 'macOS arch: 'x86-64 version: 10.11.6 build: "15G22010" ]
+--------------------------------------------
+
+Here is my code :
+
+```
+#!/opt/red-view
+Red []
+; used command line :
+; ./args.red L1014654.jpg
+; or
+; ./args.red "L1014654.jpg"
+; with identical results
+
+args: system/script/args
+print ["Received arguments:" args]
+filename: args
+
+print reduce [ filename " is of type " type? filename ]
+print reduce [ "first of filename " first filename ]
+print reduce [ "last of filename " last filename ]
+print reduce [ "length of filename " length? filename ]
+print "probe of filename shows " probe filename 
+```
+
+Here the result observed when using the command line: ./args.red "L1014654.jpg"
+
+```
+Received arguments: 'L1014654.jpg'
+'L1014654.jpg'  is of type  string
+first of filename  '
+last of filename  '
+length of filename  14
+probe of filename shows 
+"'L1014654.jpg'"
+>> 
+```
+
+Here the result observed when using do/args in the Red console: 
+
+```
+>> do/args %args.red "L1014654.jpg"
+Received arguments: L1014654.jpg
+L1014654.jpg  is of type  string
+first of filename  L
+last of filename  g
+length of filename  12
+probe of filename shows 
+"L1014654.jpg"
+== "L1014654.jpg"
+>> 
+```
+
+
+
+

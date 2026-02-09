@@ -1,4 +1,7 @@
-Red[ what: { dockimbel answer for simulating CTRL+L : Assuming you are implying the Red GUI console, here is a quick and dirty function to programmatically achieve console output clearing}]
+Red[ what: { dockimbel answer for simulating CTRL+L : 
+  "Assuming you are implying the Red GUI console, 
+  here is a quick and dirty function to programmatically 
+  achieve console output clearing"}]
 
 clean: does [
   do bind [
@@ -18,9 +21,11 @@ clean: does [
     gui-console-ctx/scroller/position: 0
   ] gui-console-ctx/terminal
   system/view/platform/redraw gui-console-ctx/console
+  () ; needed for use from the console
 ]
 
+repeat i 10 [ print reduce [ "line " i]]
+
 view [
-  button "Print Hello" [print "Hello!"]
   button "clean" [clean]
 ]

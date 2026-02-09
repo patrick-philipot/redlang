@@ -1,0 +1,1 @@
+view layout [ button 100x100 "close" [unview]]

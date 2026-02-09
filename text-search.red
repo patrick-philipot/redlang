@@ -3,6 +3,28 @@ Red[
 	from: "http://re-bol.com/rebol.html#section-10.4"
 ]
 
+; dockimble special to clear the console as CLS for BASIC or clear for BASH
+clean: does [
+  do bind [
+    full?:      no
+    top:        1
+    scroll-y:   0
+    line-y:     0
+    line-cnt:   0
+    screen-cnt: 0
+    line-pos:   1
+    clear lines
+    clear nlines
+    clear heights
+    clear selects
+    gui-console-ctx/scroller/page-size: page-cnt
+    gui-console-ctx/scroller/max-size: page-cnt - 1
+    gui-console-ctx/scroller/position: 0
+  ] gui-console-ctx/terminal
+  system/view/platform/redraw gui-console-ctx/console
+  ()
+]
+
 request-text: func [
     "Requests a text string be entered."  
     /title title-text 
@@ -18,7 +40,11 @@ request-text: func [
 			tf: field 300 yellow red str return
 
 			button "Ok" [ returned-value: tf/text unview  ]
-			button "Cancel" [ unview () ]
+			button "Cancel" [ returned-value: none unview () ]
+
+            return
+
+            text snow red { OK will open a folder-selector }
 	]
 	view/flags text-lay [popup]
 	returned-value
@@ -29,6 +55,7 @@ request-text: func [
 init-dir: what-dir
 
 phrase: request-text/title/default "Text to Find:" "sublime"
+if phrase == none [ halt ]
 start-folder: request-dir/title "Folder to Start In:"
 change-dir start-folder
 found-list: ""
@@ -53,6 +80,8 @@ recurse: func [current-folder] [
         ] 
     ]
 ]
+
+clean
 
 print rejoin [{SEARCHING for "} phrase {" in text files from } start-folder "...^/"]
 recurse %./
