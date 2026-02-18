@@ -132,12 +132,12 @@ save-db: func [ f [file!]][
     if error? try [ write f db-block ] [ print "La sauvegarde a échoué" ]
 ]
 
-sauve-db: func [][
+sauve-db: func [/local name filename confirm][
     clean
     print "La sauvegarde sera réalisée dans le répertoire en cours"
     print what-dir
-    print "Saisir un nom composé uniquement de lettres et de chiffres"
-    print "l'extension .db sera automatiquement ajoutée"
+    print "^/Saisir un nom composé uniquement de lettres et de chiffres"
+    print "l'extension .db sera automatiquement ajoutée^/"
     name: ask "Entrez un nom sans ponctuation ni extension : "
     append name ".db"
     filename: to-file name
@@ -154,9 +154,28 @@ sauve-db: func [][
             print "La sauvegarde n'a pas été réalisée"
         ]
     ]
+] ; sauve-db
 
-]
+charge-db: func [/local db-file db][
 
+    alert "Dans la fenêtre suivante, sélectionnez la sauvegarde"
+
+    db-file: request-file/title  "Sélection d'une sauvegarde"
+
+    db: load db-file
+
+    ; check if it looks like a genuine db
+
+    either all [ block! == type? first db block! == type? second db "F1" == first first db ] [
+        found-list: copy second db
+        folder-list: copy first db
+        print "La sauvegarde a bien été chargée"
+    ][
+        print "Erreur^/Le fichier chargé n'est pas une sauvegarde valide"
+        found-list: copy []
+        folder-list: copy []
+    ]
+] ; charge-db
 
 ; /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ MAIN
 ;
@@ -192,8 +211,10 @@ forever [
                     print "Erreur: il n'y a pas de recherche en cours"
                 ]
             ] 
-        "C" [ print "action non codée"]
-        "R" [ image-search ] 
+        "C" [ charge-db ]
+        "R" [ 
+                image-search 
+            ] 
         "Q" [ halt ]
 
     ][

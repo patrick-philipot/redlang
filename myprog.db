@@ -88,4 +88,5 @@
 ["gui-shooter.red" {ittle shooting game that uses a timer event to automate the movement of GUI graphics around the screen, check for collisions, and control other game operations} "(feel engage btn join) rate style rejoin" {http://re-bol.com/rebol.html#section-7.6 by Nick Antonaccio}]
 ["gallery.red" "Basic image gallery" {(stylize vh2 vh3 space) style compose/deep/only origin set to-word get to-set-word to-point2D} {https://stackoverflow.com/questions/1252561/how-to-cope-with-rebol-events-when-the-layout-is-built-programmatically}]
 ["gallery-simpler.red" "same as gallery, less code" {(stylize vh2 vh3 space) style compose/deep/only origin set to-word get to-set-word to-point2D} {https://stackoverflow.com/questions/1252561/how-to-cope-with-rebol-events-when-the-layout-is-built-programmatically}]
+["draw-crop.red" "crop with draw" "draw pen fill-pen circle box copy/part" "Gitter/Oldes"]
 ]

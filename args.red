@@ -6,9 +6,10 @@ Red []
 ; ./args.red "L1014654.jpg"
 ; with identical results
 
-args: system/script/args
+; args: system/script/args
+args: system/options/args
 print ["Received arguments:" args]
-filename: args
+filename: args/1
 
 print reduce [ filename " is of type " type? filename ]
 print reduce [ "first of filename " first filename ]
